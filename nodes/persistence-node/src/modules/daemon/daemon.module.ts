@@ -1,14 +1,15 @@
 import { HttpConfig } from "../../api-server/HttpConfig";
 import { HttpsConfig } from "../../api-server/HttpsConfig";
+import { EthereumNetwork } from "../../services/EthereumNetwork";
 import { buildMainDependencyContainer, MainDependencyContainer } from "./daemon.deps";
 
 export class DaemonModule {
 
     private constructor(
         private deps: MainDependencyContainer,
-        shouldLog: boolean
+        loggerEnabled: boolean
     ) {
-        this.deps.loggerConfig.shouldLog = shouldLog;
+        this.deps.loggerConfig.loggerEnabled = loggerEnabled;
      }
 
     static async build(shouldLog: boolean): Promise<DaemonModule> {
@@ -24,7 +25,7 @@ export class DaemonModule {
                 httpConfig,
                 httpsConfig
             ),
-            this.deps.ensIndexer.startIndexing(fromBlockNumber),
+            this.deps.ensIndexerApp.run(fromBlockNumber),
             this.deps.persistenceService.run()
         ]);
     }
