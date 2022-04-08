@@ -17,9 +17,11 @@ jobs:
           key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
           port: 22
           script: |
-            export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v16.13.0/bin
+            export NVM_DIR=~/.nvm
+            source ~/.nvm/nvm.sh
             git -C /home/ubuntu/polywrap/nodes fetch origin
             git -C /home/ubuntu/polywrap/nodes checkout develop
+            git -C /home/ubuntu/polywrap/nodes pull
             pm2 delete all
             cd /home/ubuntu/polywrap/nodes/nodes/persistence-node
             yarn
