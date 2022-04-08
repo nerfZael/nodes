@@ -28,13 +28,13 @@ jobs:
             echo "export PATH=~/.npm-global/bin:\$PATH" >> ~/.profile
             source ~/.profile
 
+            pm2 delete all
+
             set -e
 
             git fetch origin
             git checkout develop
             git pull
-            
-            pm2 delete all
 
             yarn
             sudo yarn build
