@@ -17,9 +17,17 @@ jobs:
           key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
           port: 22
           script: |
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
-            nvm use 16.13.0
+            export NVM_DIR=$HOME/.nvm;
+            source $NVM_DIR/nvm.sh;
+
+            cd /home/ubuntu/polywrap/nodes/persistence-node
+            nvm install && nvm use
+
+            mkdir ~/.npm-global
+            npm config set prefix '~/.npm-global'
+            echo "export PATH=~/.npm-global/bin:\$PATH" >> ~/.profile
+            source ~/.profile
+
             git -C /home/ubuntu/polywrap/nodes fetch origin
             git -C /home/ubuntu/polywrap/nodes checkout develop
             git -C /home/ubuntu/polywrap/nodes pull
