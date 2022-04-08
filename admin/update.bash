@@ -1,8 +1,8 @@
 #!/bin/sh
 
-set -e
-
 pm2 delete all
+
+set -e
 
 cd /home/ubuntu/polywrap/nodes/nodes/persistence-node
 yarn
