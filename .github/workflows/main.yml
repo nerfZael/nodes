@@ -18,7 +18,14 @@ jobs:
         echo "$DEPLOYMENT_KEY" | base64 --decode  >deployment.key
         chmod 400 deployment.key
     - name: Update Polywrap Nodes on development server
-      run: |
-        ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i deployment.key ubuntu@54.162.102.213 git -C /home/ubuntu/polywrap/nodes fetch origin
-        ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i deployment.key ubuntu@54.162.102.213 git -C /home/ubuntu/polywrap/nodes checkout "${GITHUB_SHA}"
-        ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i deployment.key ubuntu@54.162.102.213 PATH=$PATH curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/update.sh | bash
+      uses: appleboy/ssh-action@master
+      with:
+          host: ${{ 54.162.102.213 }}
+          username: ${{ ubuntu }}
+          key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
+          port: 22
+          script: |
+            export PATH="$PATH:/home/***/.nvm/versions/node/v14.5.0/bin/pm2:/home/***/.nvm/versions/node/v14.5.0/bin/pm2"
+            git -C /home/ubuntu/polywrap/nodes fetch origin
+            git -C /home/ubuntu/polywrap/nodes checkout "${GITHUB_SHA}"
+            curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/update.sh | bash
