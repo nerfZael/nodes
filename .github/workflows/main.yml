@@ -21,4 +21,4 @@ jobs:
       run: |
         ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i deployment.key ubuntu@54.162.102.213 git -C /home/ubuntu/polywrap/nodes fetch origin
         ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i deployment.key ubuntu@54.162.102.213 git -C /home/ubuntu/polywrap/nodes checkout "${GITHUB_SHA}"
-        ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i deployment.key ubuntu@54.162.102.213 curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/update.sh | bash
+        ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -i deployment.key ubuntu@54.162.102.213 PATH=$PATH curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/update.sh | bash
