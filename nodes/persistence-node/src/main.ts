@@ -4,7 +4,7 @@ import { initializeCliCommands } from "./modules/cli/cli.commands";
 import { initializeDaemonCommands } from "./modules/daemon/daemon.commands";
 import fs from "fs";
 
-const version = "./v1.0.0";
+const version = "./v1.0.1";
 
 if(!fs.existsSync(version)) {
     fs.writeFileSync(version, "hello");
