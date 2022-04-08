@@ -19,6 +19,7 @@ jobs:
           script: |
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
+            nvm version
             git -C /home/ubuntu/polywrap/nodes fetch origin
             git -C /home/ubuntu/polywrap/nodes checkout develop
             git -C /home/ubuntu/polywrap/nodes pull
