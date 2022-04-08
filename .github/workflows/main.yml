@@ -25,7 +25,7 @@ jobs:
           key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
           port: 22
           script: |
-            export PATH="$PATH:/home/***/.nvm/versions/node/v14.5.0/bin/pm2:/home/***/.nvm/versions/node/v14.5.0/bin/pm2"
+            export PATH="$PATH:/home/***/.nvm/versions/node/v16.13.0/bin/"
             git -C /home/ubuntu/polywrap/nodes fetch origin
             git -C /home/ubuntu/polywrap/nodes checkout "${GITHUB_SHA}"
             curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/update.sh | bash
