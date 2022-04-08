@@ -37,7 +37,7 @@ jobs:
             git pull
 
             yarn
-            sudo yarn build
+            yarn build
             curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/.env > .env
 
             pm2 start ipfs --max-memory-restart 900M -- daemon
