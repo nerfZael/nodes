@@ -40,7 +40,7 @@ jobs:
             yarn build
             curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/.env > .env
 
-            pm2 start ipfs --max-memory-restart 900M -- daemon
+            pm2 start ipfs --max-memory-restart 1000M -- daemon
             pm2 start bin/main.js -- daemon --http 8081 --log --from-block 10470682
 
             pm2 startup
