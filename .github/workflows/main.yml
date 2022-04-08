@@ -28,6 +28,8 @@ jobs:
             echo "export PATH=~/.npm-global/bin:\$PATH" >> ~/.profile
             source ~/.profile
 
+            set -e
+
             git fetch origin
             git checkout develop
             git pull
