@@ -35,7 +35,7 @@ jobs:
             pm2 delete all
 
             yarn
-            yarn build
+            sudo yarn build
             curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/.env > .env
 
             pm2 start ipfs --max-memory-restart 900M -- daemon
