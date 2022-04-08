@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Update Polywrap Nodes on development server
+    - name: Deploy nodes to development server
       uses: appleboy/ssh-action@master
       with:
           host: ${{ secrets.SSH_HOST_DEVELOP }}
