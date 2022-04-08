@@ -9,14 +9,6 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Create identity file
-      env:
-        DEPLOYMENT_KEY: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
-      run: |
-        echo "$DEPLOYMENT_KEY" | base64 --decode  >deployment.key
-        chmod 400 deployment.key
     - name: Update Polywrap Nodes on development server
       uses: appleboy/ssh-action@master
       with:
