@@ -20,8 +20,8 @@ jobs:
     - name: Update Polywrap Nodes on development server
       uses: appleboy/ssh-action@master
       with:
-          host: ${{ 54.162.102.213 }}
-          username: ${{ ubuntu }}
+          host: ${{ secrets.SSH_HOST_DEVELOP }}
+          username: ${{ secrets.SSH_USERNAME_DEVELOP }}
           key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
           port: 22
           script: |
