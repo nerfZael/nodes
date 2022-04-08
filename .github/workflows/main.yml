@@ -17,7 +17,7 @@ jobs:
           key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
           port: 22
           script: |
-            export PATH="$PATH:/home/ubuntu/.nvm/versions/node/v16.13.0/bin"
+            export PATH=$PATH:/home/ubuntu/.nvm/versions/node/v16.13.0/bin
             git -C /home/ubuntu/polywrap/nodes fetch origin
             git -C /home/ubuntu/polywrap/nodes checkout develop
             pm2 delete all
