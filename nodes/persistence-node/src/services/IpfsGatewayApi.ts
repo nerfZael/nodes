@@ -181,7 +181,7 @@ export class IpfsGatewayApi {
     }));
 
     app.get("/", handleError(async (req, res) => {
-      res.send("Status: running: v3");
+      res.send("Status: running: v4");
     }));
 
     app.get("/status", handleError(async (req, res) => {
