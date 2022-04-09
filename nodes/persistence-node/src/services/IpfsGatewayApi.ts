@@ -108,7 +108,7 @@ export class IpfsGatewayApi {
       }
 
       res.render('ipfs-pinned-files', {
-        pinnedIpfsHashes,
+        pinned: pinnedIpfsHashes,
         count: pinnedIpfsHashes.length,
       })
     }));
@@ -181,7 +181,7 @@ export class IpfsGatewayApi {
     }));
 
     app.get("/", handleError(async (req, res) => {
-      res.send("Status: running<br>Version: v1.0.2");
+      res.send("Status: running<br>Version: v1.0.3");
     }));
 
     app.get("/status", handleError(async (req, res) => {
