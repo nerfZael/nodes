@@ -32,7 +32,6 @@ jobs:
 
             set -e
 
-            git fetch origin
             git checkout develop
             git pull
 
