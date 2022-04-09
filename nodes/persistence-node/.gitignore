@@ -4,6 +4,7 @@ build
 dist
 
 storage.json
+ens-state.json
 
 # Environment
 .env
