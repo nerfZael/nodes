@@ -47,6 +47,17 @@ jobs:
           port: 22
           source: "./nodes/persistence-node/bin"
           target: "/home/ubuntu/hosting/polywrap/nodes"
+
+      - name: "Copy node_modules to development server"
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST_DEVELOP }}
+          username: ${{ secrets.SSH_USERNAME_DEVELOP }}
+          key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
+          port: 22
+          source: "./nodes/persistence-node/node_modules"
+          target: "/home/ubuntu/hosting/polywrap/nodes"
+
       - name: Deploy nodes to development server
         uses: appleboy/ssh-action@master
         with:
