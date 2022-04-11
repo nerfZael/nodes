@@ -1,6 +1,6 @@
 #!/bin/sh
-staging=/home/staging
-hosting=/home/hosting
+staging=/home/ubuntu/staging
+hosting=/home/ubuntu/hosting
 
 persistenceNode=polywrap/nodes/nodes/persistence-node
 ensIndexerNode=polywrap/nodes/nodes/ens-contenthash-indexer-node
