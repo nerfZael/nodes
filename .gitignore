@@ -3,8 +3,11 @@ bin
 build
 dist
 
-storage.json
+.data
 ens-state.json
+config.json
+persistence-state.json
+ens-state.*.json
 
 # Environment
 .env
