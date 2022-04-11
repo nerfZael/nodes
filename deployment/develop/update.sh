@@ -31,10 +31,10 @@ node $hosting/bin/main.js init --data ./.data/ropsten --network ropsten --log
 
 node $hosting/$persistenceNode/bin/main.js init --data ./.data --log
 
-pm2 start $hosting/$persistenceNode/bin/main.js --name persistence-node -- daemon --data ./.data --http 8081 --log
+pm2 start $hosting/$persistenceNode/bin/main.js --name persistence-node -- daemon --data $hosting/$persistenceNode/.data --http 8081 --log
 
-pm2 start $hosting/$ensIndexerNode/bin/main.js --name ens-indexer-node-rinkeby -- daemon --data ./.data/rinkeby --port 8082 --log --from-block 10470682 --log
-pm2 start $hosting/$ensIndexerNode/bin/main.js --name ens-indexer-node-ropsten -- daemon --data ./.data/ropsten --port 8083 --log --from-block 10470682 --log
+pm2 start $hosting/$ensIndexerNode/bin/main.js --name ens-indexer-node-rinkeby -- daemon --data $hosting/$ensIndexerNode/.data/rinkeby --port 8082 --log --from-block 10470682 --log
+pm2 start $hosting/$ensIndexerNode/bin/main.js --name ens-indexer-node-ropsten -- daemon --data $hosting/$ensIndexerNode/.data/ropsten --port 8083 --log --from-block 10470682 --log
 
 sudo env PATH=$PATH:/home/ubuntu/.nvm/versions/node/v16.13.0/bin /home/ubuntu/.npm-global/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
 
