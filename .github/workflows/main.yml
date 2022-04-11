@@ -95,8 +95,6 @@ jobs:
               echo "export PATH=~/.npm-global/bin:\$PATH" >> ~/.profile
               source ~/.profile
 
-              pm2 delete persistence-node
-
               set -e
 
               cd /home/ubuntu/hosting/polywrap/nodes/nodes/persistence-node
