@@ -27,8 +27,8 @@
   ],
   "scripts": {
     "build": "yarn build:persistence && yarn build:ens",
-    "build:persistence": "cd ./nodes/persistence-node && tsc --project tsconfig.build.json && yarn copy-ui-files",
-    "build:ens": "cd ./nodes/ens-contenthash-indexer-node && tsc --project tsconfig.build.json && yarn copy-ui-files",
+    "build:persistence": "cd ./nodes/persistence-node && yarn build",
+    "build:ens": "cd ./nodes/ens-contenthash-indexer-node && yarn build",
     "install:ci": "yarn install:ci:persistence && yarn install:ci:ens",
     "install:ci:persistence": "cd ./nodes/persistence-node && yarn install --nonInteractive --frozen-lockfile --prefer-offline",
     "install:ci:ens": "cd ./nodes/ens-contenthash-indexer-node && yarn install --nonInteractive --frozen-lockfile --prefer-offline"
