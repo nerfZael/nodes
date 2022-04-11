@@ -26,8 +26,8 @@ cd $hosting/$ensIndexerNode
 cp -r $staging/$ensIndexerNode/bin ./
 cp -r $staging/$ensIndexerNode/node_modules ./
 
-node $hosting/bin/main.js init --data ./.data/rinkeby --network rinkeby --log
-node $hosting/bin/main.js init --data ./.data/ropsten --network ropsten --log
+node $hosting/$persistenceNode/bin/main.js init --data ./.data/rinkeby --network rinkeby --log
+node $hosting/$persistenceNode/bin/main.js init --data ./.data/ropsten --network ropsten --log
 
 node $hosting/$persistenceNode/bin/main.js init --data ./.data --log
 
