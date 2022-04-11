@@ -45,7 +45,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME_DEVELOP }}
           key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
           port: 22
-          source: "./nodes/persistence-node/bin"
+          source: "./nodes/persistence-node/bin,./nodes/persistence-node/bin,./nodes/ens-contenthash-indexer-node/node_modules,./nodes/ens-contenthash-indexer-node/node_modules"
           target: "/home/ubuntu/staging/polywrap/nodes"
 
       - name: "Copy ENS indexer node artifacts to development server"
@@ -56,27 +56,6 @@ jobs:
           key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
           port: 22
           source: "./nodes/ens-contenthash-indexer-node/bin"
-          target: "/home/ubuntu/staging/polywrap/nodes"
-
-      - name: "Copy persistence node node_modules to development server"
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SSH_HOST_DEVELOP }}
-          username: ${{ secrets.SSH_USERNAME_DEVELOP }}
-          key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
-          port: 22
-          source: "./nodes/persistence-node/node_modules"
-          target: "/home/ubuntu/staging/polywrap/nodes"
-
-        
-      - name: "Copy ENS indexer node node_modules to development server"
-        uses: appleboy/scp-action@master
-        with:
-          host: ${{ secrets.SSH_HOST_DEVELOP }}
-          username: ${{ secrets.SSH_USERNAME_DEVELOP }}
-          key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
-          port: 22
-          source: "./nodes/ens-contenthash-indexer-node/node_modules"
           target: "/home/ubuntu/staging/polywrap/nodes"
 
       - name: Deploy nodes to development server
