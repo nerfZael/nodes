@@ -1,6 +1,7 @@
 #!/bin/sh
-staging=/home/ubuntu/staging
-hosting=/home/ubuntu/hosting
+staging=~/staging
+hosting=~/hosting
+data=~/data
 
 persistenceNode=polywrap/nodes/nodes/persistence-node
 ensIndexerNode=polywrap/nodes/nodes/ens-contenthash-indexer-node
@@ -26,15 +27,13 @@ cd $hosting/$ensIndexerNode
 cp -r $staging/$ensIndexerNode/bin ./
 cp -r $staging/$ensIndexerNode/node_modules ./
 
-node $hosting/$persistenceNode/bin/main.js init --data ./.data/rinkeby --network rinkeby --log
-node $hosting/$persistenceNode/bin/main.js init --data ./.data/ropsten --network ropsten --log
+node $hosting/$persistenceNode/bin/main.js init --data $data/persistence-node --log
+node $hosting/$ensIndexerNode/bin/main.js init --data $data/ens-indexer-node/rinkeby --network rinkeby --log
+node $hosting/$ensIndexerNode/bin/main.js init --data $data/ens-indexer-node/ropsten --network ropsten --log
 
-node $hosting/$persistenceNode/bin/main.js init --data ./.data --log
-
-pm2 start $hosting/$persistenceNode/bin/main.js --name persistence-node -- daemon --data $hosting/$persistenceNode/.data --http 8081 --log
-
-pm2 start $hosting/$ensIndexerNode/bin/main.js --name ens-indexer-node-rinkeby -- daemon --data $hosting/$ensIndexerNode/.data/rinkeby --port 8082 --log --from-block 10470682 --log
-pm2 start $hosting/$ensIndexerNode/bin/main.js --name ens-indexer-node-ropsten -- daemon --data $hosting/$ensIndexerNode/.data/ropsten --port 8083 --log --from-block 10470682 --log
+pm2 start $hosting/$persistenceNode/bin/main.js --name persistence-node -- daemon --data $data/persistence-node --http 8081 --log
+pm2 start $hosting/$ensIndexerNode/bin/main.js --name ens-indexer-node-rinkeby -- daemon --data $data/ens-indexer-node/rinkeby --port 8082 --log --from-block 10470682 --log
+pm2 start $hosting/$ensIndexerNode/bin/main.js --name ens-indexer-node-ropsten -- daemon --data $data/ens-indexer-node/ropsten --port 8083 --log --from-block 10470682 --log
 
 sudo env PATH=$PATH:/home/ubuntu/.nvm/versions/node/v16.13.0/bin /home/ubuntu/.npm-global/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
 
