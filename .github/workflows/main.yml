@@ -94,6 +94,10 @@ jobs:
               echo "export PATH=~/.npm-global/bin:\$PATH" >> ~/.profile
               source ~/.profile
 
+              pm2 delete persistence-node
+              pm2 delete ens-indexer-node-rinkeby
+              pm2 delete ens-indexer-node-ropsten
+
               set -e
 
               cd /home/ubuntu/hosting/polywrap/nodes/nodes/persistence-node
