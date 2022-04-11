@@ -32,7 +32,7 @@ export const isWrapper = async (ipfs: IPFS.IPFS, ipfsConfig: IpfsConfig, logger:
       return info.Links.some(x => x.Name && isValidWrapperManifestName(x.Name))
         ? "yes"
         : "no";
-    } catch (e: any) {
+    } catch (e) {
       logger.log(JSON.stringify(e));
       return "timeout";
     }

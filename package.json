@@ -1,0 +1,38 @@
+{
+  "name": "@polywrap/nodes",
+  "version": "0.1.0",
+  "main": "bin/main.js",
+  "types": "bin/main.d.ts",
+  "author": "nerfZael",
+  "license": "MIT",
+  "private": false,
+  "files": [
+    "/bin"
+  ],
+  "bin": {
+    "wrap-persistence-node": "./bin/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/polywrap/nodes"
+  },
+  "keywords": [
+    "polywrap",
+    "ipfs",
+    "persistence",
+    "wrap",
+    "ens",
+    "polywrapper",
+    "wrapper"
+  ],
+  "scripts": {
+    "build": "cd ./nodes/persistence-node && tsc --project tsconfig.build.json && yarn copy-ui-files",
+    "install:ci": "cd ./nodes/persistence-node && yarn install --nonInteractive --frozen-lockfile --prefer-offline",
+    "copy-ui-files": "npx rimraf ./bin/ui && mkdir -p ./bin/ui/ && npx copyfiles -u 2 ./src/ui/* ./bin/ui/"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  
+  }
+}

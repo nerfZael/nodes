@@ -9,38 +9,77 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Deploy nodes to development server
-      uses: appleboy/ssh-action@master
-      with:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read .nvmrc
+        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
+
+      - name: Setup Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: '${{ steps.nvm.outputs.NVMRC }}'
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Install dependencies
+        run: yarn install:ci
+
+      - name: Build
+        run: yarn build
+        
+      - name: "Copy build artifacts to development server"
+        uses: appleboy/scp-action@master
+        with:
           host: ${{ secrets.SSH_HOST_DEVELOP }}
           username: ${{ secrets.SSH_USERNAME_DEVELOP }}
           key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
           port: 22
-          script: |
-            export NVM_DIR=$HOME/.nvm;
-            source $NVM_DIR/nvm.sh;
+          source: "./bin"
+          # The path is based on the directory where the user logged into the server starts
+          target: "/home/ubuntu/hosting/polywrap/nodes"
+      - name: Deploy nodes to development server
+        uses: appleboy/ssh-action@master
+        with:
+            host: ${{ secrets.SSH_HOST_DEVELOP }}
+            username: ${{ secrets.SSH_USERNAME_DEVELOP }}
+            key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
+            port: 22
+            script: |
+              export NVM_DIR=$HOME/.nvm;
+              source $NVM_DIR/nvm.sh;
 
-            cd /home/ubuntu/polywrap/nodes/nodes/persistence-node
-            nvm install && nvm use
+              cd /home/ubuntu/polywrap/nodes/nodes/persistence-node
+              nvm install && nvm use
 
-            mkdir ~/.npm-global
-            npm config set prefix '~/.npm-global'
-            echo "export PATH=~/.npm-global/bin:\$PATH" >> ~/.profile
-            source ~/.profile
+              mkdir ~/.npm-global
+              npm config set prefix '~/.npm-global'
+              echo "export PATH=~/.npm-global/bin:\$PATH" >> ~/.profile
+              source ~/.profile
 
-            pm2 delete persistence-node
+              pm2 delete persistence-node
 
-            set -e
+              set -e
 
-            git checkout develop
-            git pull
+              git checkout develop
+              git pull
 
-            yarn
-            yarn build
-            curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/.env > .env
+              yarn
+              yarn build
+              curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/.env > .env
 
-            pm2 start bin/main.js --name persistence-node -- daemon --http 8081 --log --from-block 10470682
+              pm2 start bin/main.js --name persistence-node -- daemon --http 8081 --log --from-block 10470682
 
-            sudo env PATH=$PATH:/home/ubuntu/.nvm/versions/node/v16.13.0/bin /home/ubuntu/.npm-global/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
+              sudo env PATH=$PATH:/home/ubuntu/.nvm/versions/node/v16.13.0/bin /home/ubuntu/.npm-global/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
 
-            pm2 save
+              pm2 save
