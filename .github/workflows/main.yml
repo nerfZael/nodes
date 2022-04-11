@@ -69,6 +69,11 @@ jobs:
               export NVM_DIR=$HOME/.nvm;
               source $NVM_DIR/nvm.sh;
 
+              mkdir ~/.npm-global
+              npm config set prefix '~/.npm-global'
+              echo "export PATH=~/.npm-global/bin:\$PATH" >> ~/.profile
+              source ~/.profile
+
               cd /home/ubuntu/hosting/polywrap/nodes/nodes/persistence-node
 
               pm2 stop persistence-node
