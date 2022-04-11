@@ -35,6 +35,4 @@ pm2 start $hosting/$persistenceNode/bin/main.js --name persistence-node -- daemo
 pm2 start $hosting/$ensIndexerNode/bin/main.js --name ens-indexer-node-rinkeby -- daemon --data $data/ens-indexer-node/rinkeby --port 8082 --log --from-block 10470682 --log
 pm2 start $hosting/$ensIndexerNode/bin/main.js --name ens-indexer-node-ropsten -- daemon --data $data/ens-indexer-node/ropsten --port 8083 --log --from-block 10470682 --log
 
-sudo env PATH=$PATH:/home/ubuntu/.nvm/versions/node/v16.13.0/bin /home/ubuntu/.npm-global/lib/node_modules/pm2/bin/pm2 startup systemd -u ubuntu --hp /home/ubuntu
-
 pm2 save
