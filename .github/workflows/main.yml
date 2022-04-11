@@ -81,8 +81,8 @@ jobs:
 
               set -e
 
-              cp /home/ubuntu/staging/polywrap/nodes/nodes/persistence-node/bin ./
-              cp /home/ubuntu/staging/polywrap/nodes/nodes/persistence-node/node_modules ./
+              cp -r /home/ubuntu/staging/polywrap/nodes/nodes/persistence-node/bin ./
+              cp -r /home/ubuntu/staging/polywrap/nodes/nodes/persistence-node/node_modules ./
 
               curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/.env > .env
 
