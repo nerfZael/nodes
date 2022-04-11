@@ -104,8 +104,6 @@ jobs:
               cp -r /home/ubuntu/staging/polywrap/nodes/nodes/ens-contenthash-indexer-node/bin ./
               cp -r /home/ubuntu/staging/polywrap/nodes/nodes/ens-contenthash-indexer-node/node_modules ./
 
-              curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/.env > .env
-
               node /home/ubuntu/hosting/polywrap/nodes/nodes/ens-contenthash-indexer-node/bin/main.js init --data ./.data/rinkeby --log
               node /home/ubuntu/hosting/polywrap/nodes/nodes/ens-contenthash-indexer-node/bin/main.js init --data ./.data/ropsten --log
             
