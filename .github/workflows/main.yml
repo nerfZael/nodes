@@ -46,7 +46,6 @@ jobs:
           key: ${{ secrets.DEPLOYMENT_KEY_DEVELOP }}
           port: 22
           source: "./nodes/persistence-node/bin"
-          # The path is based on the directory where the user logged into the server starts
           target: "/home/ubuntu/hosting/polywrap/nodes"
       - name: Deploy nodes to development server
         uses: appleboy/ssh-action@master
@@ -59,23 +58,17 @@ jobs:
               export NVM_DIR=$HOME/.nvm;
               source $NVM_DIR/nvm.sh;
 
-              cd /home/ubuntu/polywrap/nodes/nodes/persistence-node
-              nvm install && nvm use
-
               mkdir ~/.npm-global
               npm config set prefix '~/.npm-global'
               echo "export PATH=~/.npm-global/bin:\$PATH" >> ~/.profile
               source ~/.profile
 
+              cd /home/ubuntu/hosting/polywrap/nodes/nodes/persistence-node
+
               pm2 delete persistence-node
 
               set -e
 
-              git checkout develop
-              git pull
-
-              yarn
-              yarn build
               curl -o- https://raw.githubusercontent.com/nerfZael/persistence-scripts/main/.env > .env
 
               pm2 start bin/main.js --name persistence-node -- daemon --http 8081 --log --from-block 10470682
