@@ -95,6 +95,8 @@ jobs:
               echo "export PATH=~/.npm-global/bin:\$PATH" >> ~/.profile
               source ~/.profile
 
+              pm2 delete persistence-node
+
               set -e
 
               cd /home/ubuntu/hosting/polywrap/nodes/nodes/persistence-node
@@ -112,8 +114,8 @@ jobs:
             
               node /home/ubuntu/hosting/polywrap/nodes/nodes/persistence-node/bin/main.js init --data ./.data --log
               
-              pm2 start /home/ubuntu/hosting/polywrap/nodes/nodes/ens-contenthash-indexer-node/bin/main.js --name persistence-node-rinkeby -- daemon --data ./.data/rinkeby --port 8082 --log --from-block 10470682 --log
-              pm2 start /home/ubuntu/hosting/polywrap/nodes/nodes/ens-contenthash-indexer-node/bin/main.js --name persistence-node-ropsten -- daemon --data ./.data/ropsten --port 8083 --log --from-block 10470682 --log
+              pm2 start /home/ubuntu/hosting/polywrap/nodes/nodes/ens-contenthash-indexer-node/bin/main.js --name ens-indexer-node-rinkeby -- daemon --data ./.data/rinkeby --port 8082 --log --from-block 10470682 --log
+              pm2 start /home/ubuntu/hosting/polywrap/nodes/nodes/ens-contenthash-indexer-node/bin/main.js --name ens-indexer-node-ropsten y-- daemon --data ./.data/ropsten --port 8083 --log --from-block 10470682 --log
 
               pm2 start /home/ubuntu/hosting/polywrap/nodes/nodes/persistence-node/bin/main.js --name persistence-node -- daemon --data ./.data --http 8081 --log
 
